@@ -1,1 +1,140 @@
+// styles.scss
 
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$background-color: #f9f9f9;
+$completed-color: #28a745;
+$error-color: #dc3545;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba($primary-color, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba($primary-color, 0);
+  }
+}
+
+.todo-container {
+  margin: 20px auto;
+  padding: 30px;
+  max-width: 600px;
+  border: 1px solid $secondary-color;
+  border-radius: 10px;
+  background-color: $background-color;
+  animation: fadeIn 0.5s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 2em;
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: $secondary-color;
+
+    input[type='text'],
+    input[type='range'] {
+      width: calc(100% - 10px);
+      padding: 10px;
+      margin-top: 5px;
+      border: 2px solid $secondary-color;
+      border-radius: 5px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: $primary-color;
+        outline: none;
+        animation: pulse 1s infinite;
+      }
+    }
+
+    input[type='range'] {
+      width: 100%;
+    }
+  }
+
+  button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: $primary-color;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    animation: fadeIn 0.5s ease-in-out;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      transform: translateY(-2px);
+    }
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+
+    li {
+      padding: 15px;
+      border-bottom: 1px solid $secondary-color;
+      display: flex;
+      align-items: center;
+      animation: slideIn 0.3s ease-in-out;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      input[type='checkbox'] {
+        margin-right: 15px;
+        transform: scale(1.5);
+      }
+
+      span {
+        font-size: 1.2em;
+        transition: color 0.3s, text-decoration 0.3s;
+
+        &.completed {
+          text-decoration: line-through;
+          color: $completed-color;
+        }
+      }
+
+      &:hover {
+        background-color: lighten($background-color, 10%);
+      }
+    }
+  }
+}

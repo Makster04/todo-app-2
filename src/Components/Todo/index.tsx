@@ -1,6 +1,6 @@
-// Components/Todo/index.tsx
 import React, { useState } from 'react';
 import { useSettings } from '../../Context/Settings';
+import './styles.scss';
 
 interface TodoItem {
   id: string;
@@ -18,13 +18,11 @@ const Todo: React.FC = () => {
   const [todoList, setTodoList] = useState<TodoItem[]>([]);
 
   const handleAddTodo = () => {
-    // Check if the todoText is empty before adding the todo item
     if (todoText.trim() === '') {
       console.log('Todo text cannot be empty');
       return;
     }
 
-    // Create a new todo item
     const newTodo: TodoItem = {
       id: Date.now().toString(),
       text: todoText,
@@ -33,17 +31,13 @@ const Todo: React.FC = () => {
       completed: false,
     };
 
-    // Add the new todo item to the todo list
     setTodoList([...todoList, newTodo]);
-
-    // Clear input fields after adding todo item
     setTodoText('');
     setAssignee('');
-    setDifficulty(4); // Reset difficulty to default
+    setDifficulty(4);
   };
 
   const handleToggleCompleted = (id: string) => {
-    // Toggle the completed status of the todo item with the given id
     const updatedTodoList = todoList.map(todo => {
       if (todo.id === id) {
         return {
@@ -58,7 +52,7 @@ const Todo: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="todo-container">
       <h2>To Do List</h2>
       <label>
         Todo Item:
@@ -93,12 +87,10 @@ const Todo: React.FC = () => {
       <button onClick={() => setShowCompleted(!hideCompleted)}>
         {hideCompleted ? 'Hide Completed' : 'Show Completed'}
       </button>
-
-      {/* Render the todo items */}
       <ul>
         {todoList
-          .filter(todo => !todo.completed || !hideCompleted) // Filter based on completion status and hideCompleted setting
-          .slice(0, displayCount) // Limit display to displayCount
+          .filter(todo => !todo.completed || !hideCompleted)
+          .slice(0, displayCount)
           .map(todo => (
             <li key={todo.id}>
               <input
@@ -106,7 +98,7 @@ const Todo: React.FC = () => {
                 checked={todo.completed}
                 onChange={() => handleToggleCompleted(todo.id)}
               />
-              <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+              <span className={todo.completed ? 'completed' : ''}>
                 {todo.text} - {todo.assignee} - {todo.difficulty}
               </span>
             </li>
