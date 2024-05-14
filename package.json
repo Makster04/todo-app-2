@@ -13,11 +13,13 @@
   "dependencies": {
     "@mantine/core": "^7.9.1",
     "@mantine/hooks": "^7.9.1",
+    "@types/styled-components": "^5.1.34",
     "axios": "^1.6.8",
     "pretty-print-json": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.76.0",
+    "styled-components": "^6.1.11",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
