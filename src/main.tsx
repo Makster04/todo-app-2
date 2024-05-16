@@ -1,13 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import { SettingsProvider } from './Context/Settings';
+import { AuthProvider } from './Context/Auth';
+import List from './Components/List';
+import SettingsForm from './Components/SettingsForm';
+import Auth from './Components/Auth';
+import { Pagination } from '@mantine/core';
 
-const rootElement = document.getElementById('root');
-if (rootElement) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+const Main: React.FC = () => {
+  return (
+    <SettingsProvider>
+      <AuthProvider>
+        <div className="app-container">
+          <SettingsForm />
+          <Auth capability="read">
+            <List />
+            <Pagination />
+          </Auth>
+        </div>
+      </AuthProvider>
+    </SettingsProvider>
   );
 }
+
+export default Main;
