@@ -1,12 +1,10 @@
-import { MantineProvider } from '@mantine/core';
-import Todo from './Components/Todo';
+import React from 'react';
+import Main from './main';
 
 const App: React.FC = () => {
   return (
-    <MantineProvider>
-      <Todo />
-    </MantineProvider>
+    <Main />
   );
-};
+}
 
 export default App;
