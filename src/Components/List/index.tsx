@@ -3,8 +3,7 @@ import Todo from '../Todo';
 
 const List: React.FC = () => {
   return (
-    <div>
-      <h2>To Do List</h2>
+    <div>   
       <Todo />
     </div>
   );

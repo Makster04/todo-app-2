@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSettings } from '../../Context/Settings';
-import './styles.scss';
 
 interface TodoItem {
   id: string;
@@ -11,18 +10,18 @@ interface TodoItem {
 }
 
 const Todo: React.FC = () => {
-  const { displayCount, hideCompleted } = useSettings();
+  const { displayCount } = useSettings();
   const [todoText, setTodoText] = useState('');
   const [assignee, setAssignee] = useState('');
   const [difficulty, setDifficulty] = useState(4);
   const [todoList, setTodoList] = useState<TodoItem[]>([]);
+  const [showCompleted, setShowCompleted] = useState(true);
 
   const handleAddTodo = () => {
     if (todoText.trim() === '') {
       console.log('Todo text cannot be empty');
       return;
     }
-
     const newTodo: TodoItem = {
       id: Date.now().toString(),
       text: todoText,
@@ -30,7 +29,6 @@ const Todo: React.FC = () => {
       difficulty,
       completed: false,
     };
-
     setTodoList([...todoList, newTodo]);
     setTodoText('');
     setAssignee('');
@@ -47,12 +45,11 @@ const Todo: React.FC = () => {
       }
       return todo;
     });
-
     setTodoList(updatedTodoList);
   };
 
   return (
-    <div className="todo-container">
+    <div>
       <h2>To Do List</h2>
       <label>
         Todo Item:
@@ -84,12 +81,13 @@ const Todo: React.FC = () => {
         {difficulty}
       </label>
       <button onClick={handleAddTodo}>Add Todo</button>
-      <button onClick={() => setShowCompleted(!hideCompleted)}>
-        {hideCompleted ? 'Hide Completed' : 'Show Completed'}
+      <button onClick={() => setShowCompleted(!showCompleted)}>
+        {showCompleted ? 'Hide Completed' : 'Show Completed'}
       </button>
+
       <ul>
         {todoList
-          .filter(todo => !todo.completed || !hideCompleted)
+          .filter(todo => !todo.completed || showCompleted)
           .slice(0, displayCount)
           .map(todo => (
             <li key={todo.id}>
@@ -98,8 +96,11 @@ const Todo: React.FC = () => {
                 checked={todo.completed}
                 onChange={() => handleToggleCompleted(todo.id)}
               />
-              <span className={todo.completed ? 'completed' : ''}>
-                {todo.text} - {todo.assignee} - {todo.difficulty}
+              <span>
+                To Do Item: {todo.text} -
+                Assignee: {todo.assignee} - 
+                Difficulty: {todo.difficulty} - 
+                Completed: {todo.completed ? 'Yes' : 'No'}
               </span>
             </li>
           ))}

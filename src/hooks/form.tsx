@@ -9,7 +9,6 @@ const useForm = (callback: (values: any) => void, defaultValues: any = {}) => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement> | number) => {
-    // Implementation of handleChange function
   };
 
   useEffect(() => {
